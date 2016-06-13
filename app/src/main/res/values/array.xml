@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_hobbies_options">
+        <item>@string/pref_label_reading</item>
+        <item>@string/pref_label_cycling</item>
+        <item>@string/pref_label_fishing</item>
+        <item>@string/pref_label_traveling</item>
+        <item>@string/pref_label_running</item>
+        <item>@string/pref_label_shopping</item>
+    </string-array>
+
+    <string-array name="pref_hobbies_values">
+        <item>@string/pref_reading</item>
+        <item>@string/pref_cycling</item>
+        <item>@string/pref_fishing</item>
+        <item>@string/pref_traveling</item>
+        <item>@string/pref_running</item>
+        <item>@string/pref_shopping</item>
+    </string-array>
+
+</resources>

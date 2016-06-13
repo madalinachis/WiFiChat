@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App and Activities -->
+    <string name="app_name">WiFiChat</string>
+    <string name="title_activity_view_image">View image</string>
+    <string name="title_activity_chat">Chatroom</string>
+    <string name="title_activity_record_audio">Record audio</string>
+    <string name="title_activity_play_video">Play video</string>
+    <string name="title_activity_file_picker">File chooser</string>
+    <string name="title_activity_web_view">Open link....</string>
+    <string name="title_activity_drawing">Draw</string>
+
+    <!-- Menus -->
+    <string name="disconnect">Disconnect</string>
+    <string name="send_image">Send image</string>
+    <string name="download_image">Download image</string>
+    <string name="send_audio">Send audio message</string>
+    <string name="send_video">Send video message</string>
+    <string name="send_file">Send file</string>
+    <string name="send_drawing">Send drawing</string>
+
+    <!-- Popup menus -->
+    <string name="pick_image">Pick image</string>
+    <string name="take_photo">Take photo</string>
+
+    <!-- Buttons -->
+    <string name="go_to_settings_button">Go to Settings</string>
+    <string name="send_button">Send</string>
+    <string name="back_button">Back</string>
+    <string name="record_button">Start recording</string>
+    <string name="playback_button">Play</string>
+    <string name="stop_recording_button">Stop recording</string>
+    <string name="ok">OK</string>
+
+    <!-- TextView -->
+    <string name="go_to_settings_text">Click the image above to go to Settings and connect your device to others by Wifi-Direct</string>
+
+    <!-- EditTexts -->
+    <string name="set_chat_name">Please choose your chat name</string>
+    <string name="enter_text">Enter your message here</string>
+
+    <!-- Descriptions -->
+    <string name="full_screen_image">Full screen image</string>
+    <string name="file_icon">File icon</string>    
+    <string name="paint">Choose a color</string>    
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
+    
+    <!-- Drawing buttons -->
+    <string name="new_drawing">New</string>
+    <string name="brush">Brush</string>
+    <string name="eraser">Eraser</string>
+    <string name="save_and_send">Save and Send</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="login">Log in</string>
+    <string name="signup">Sign up</string>
+    <string name="powered_by">Powered by</string>
+    <string name="parse">Parse</string>
+    <string name="slogan">Welcome</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="search_distance">Search Distance</string>
+    <string name="logout_full">Log out of Anywall</string>
+    <string name="post">Post</string>
+    <string name="prompt_post">Post</string>
+    <string name="post_out_of_range">Can\'t view post! Get closer.</string>
+    <string name="progress_post">Posting&#8230;</string>
+    <string name="settings_distance_format">%d feet</string>
+    <string name="activity_post_title">Create a Post</string>
+    <string name="character_count_placeholder">0/140</string>
+
+    <!--Chat-->
+    <string name="finding_service">Finding local services</string>
+    <string name="btn_send">Send</string>
+    <string name="txt_hint">Type Message</string>
+    <string name="chat">Chat</string>
+    <string name="transfer">Transfer file</string>
+
+    <!--Transfer file-->
+    <string name="enable_p2p_button">P2P On/Off</string>
+    <string name="discover_peers_button">Discover</string>
+    <string name="connect_peer_button">Connect</string>
+    <string name="disconnect_peer_button">Disconnect</string>
+    <string name="get_file_button">Launch Gallery</string>
+    <string name="empty"/>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="client_text">This device will act as a client. Click on Gallery button to pick a local(stored) file</string>
+    <string name="empty_message">No devices found. Turn on P2P and perform discovery from the Action Bar</string>
+    <string name="p2p_off_warning">Enable P2P from action bar button above or system settings</string>
+    <string name="group_owner_text">"Am I the Group Owner? "</string>
+    <string name="label_me">ME</string>
+    <string name="label_peers">PEERS</string>
+    <string name="banner_ad_unit_id">ca-app-pub-6910223592682604/3737920779</string>
+    <string name="poster_ad_unit_id">ca-app-pub-6910223592682604/2198005177</string>
+    <string name="prompt_firstname">Name</string>
+    <string name="prompt_hobby">Hobby</string>
+
+    <string-array name="hobbies">
+        <item>Reading</item>
+        <item>Cooking</item>
+        <item>Dancing</item>
+        <item>Cycling</item>
+        <item>Fishing</item>
+        <item>Traveling</item>
+        <item>Shopping</item>
+        <item>Painting</item>
+        <item>Running</item>
+        <item>dudu</item>
+    </string-array>
+
+    <string name="pref_hobbies_label">Hobbies</string>
+
+    <string name="pref_label_reading">Reading</string>
+    <string name="pref_label_cycling">Cycling</string>
+    <string name="pref_label_fishing">Fishing</string>
+    <string name="pref_label_traveling">Traveling</string>
+    <string name="pref_label_running">Running</string>
+    <string name="pref_label_shopping">Shopping</string>
+
+    <string name="pref_hobbies_key">hobby</string>
+
+    <string name="pref_reading" translatable="false">Reading</string>
+    <string name="pref_cycling" translatable="false">Cycling</string>
+    <string name="pref_fishing" translatable="false">Fishing</string>
+    <string name="pref_traveling" translatable="false">Traveling</string>
+    <string name="pref_running" translatable="false">Running</string>
+    <string name="pref_shopping" translatable="false">Shopping</string>
+
+</resources>

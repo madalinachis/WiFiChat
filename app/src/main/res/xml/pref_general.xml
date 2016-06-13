@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:title="Settings">
+
+    <ListPreference
+        android:defaultValue="@string/pref_reading"
+        android:entries="@array/pref_hobbies_options"
+        android:entryValues="@array/pref_hobbies_values"
+        android:key="PREF_LIST"
+        android:title="@string/pref_hobbies_label" />
+</PreferenceScreen>
