@@ -1,44 +1,33 @@
 package com.example.madalina.wifigroupchat.activities;
 
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
-import com.example.madalina.wifigroupchat.R;
+import com.example.madalina.wifigroupchat.fragments.SettingsFragment;
 
 /**
  * Activity that displays the settings screen.
  */
-public class SettingsActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
+public class SettingsActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.pref_general);
-        bindPreferenceValueToSummary(findPreference("PREF_LIST"));
-    }
-
-    private void bindPreferenceValueToSummary(Preference preference) {
-        preference.setOnPreferenceChangeListener(this);
-        onPreferenceChange(preference, PreferenceManager
-                .getDefaultSharedPreferences(preference.getContext())
-                .getString(preference.getKey(), ""));
+        getFragmentManager().beginTransaction()
+                .replace(android.R.id.content, new SettingsFragment())
+                .commit();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        String stringValue = newValue.toString();
-        if (preference instanceof ListPreference) {
-            ListPreference listPreference = (ListPreference) preference;
-            int prefIndex = listPreference.findIndexOfValue(stringValue);
-            if (prefIndex >= 0) {
-                preference.setSummary(listPreference.getEntries()[prefIndex]);
-            }
-        } else {
-            preference.setSummary(stringValue);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return false;
         }
-        return true;
     }
 }

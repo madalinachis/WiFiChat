@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.example.madalina.wifigroupchat"
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -19,8 +19,8 @@ android {
             }
         }
         buildTypes.each {
-            //192.168.1.5 - camin  192.168.1.107 / 100- dudu
-            it.buildConfigField 'String', 'API_URL', "\"http://192.168.1.5:8080\""
+            //192.168.1.5 - camin  192.168.1.107 / 108- dudu
+            it.buildConfigField 'String', 'API_URL', "\"http://192.168.1.108:8080\""
         }
 
         dexOptions {
@@ -34,7 +34,7 @@ android {
         testCompile 'junit:junit:4.12'
         compile 'com.android.support:appcompat-v7:23.3.0'
         compile 'com.android.support:design:23.3.0'
-        compile 'com.google.android.gms:play-services:8.4.0'
+        compile 'com.google.android.gms:play-services:9.0.1'
         compile 'com.android.support:support-annotations:23.3.0'
         compile 'com.squareup.retrofit2:retrofit:2.0.2'
         compile 'com.squareup.retrofit2:converter-gson:2.0.0'

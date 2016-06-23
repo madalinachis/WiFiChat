@@ -15,6 +15,7 @@ import android.widget.EditText;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.example.madalina.wifigroupchat.R;
 import com.example.madalina.wifigroupchat.activities.LoginActivity;
 import com.example.madalina.wifigroupchat.activities.MainActivity;
@@ -24,6 +25,7 @@ import com.example.madalina.wifigroupchat.model.User;
 import com.example.madalina.wifigroupchat.network.ErrorHandler;
 import com.example.madalina.wifigroupchat.network.UserApis;
 import com.example.madalina.wifigroupchat.utils.GetGpsLocation;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,17 +61,10 @@ public class LoginFragment extends BaseFragment {
     public void doLogin() {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-
-        Intent intent = new Intent(getActivity(), MapActivity.class);
-        intent.putExtra("currentUser", user);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-
-        //login(username, password);
+        login(username, password);
     }
 
     private void login(String username, String password) {
-        startActivity(new Intent(getActivity(), LoginActivity.class));
         runCall(userApis.login(username, password)).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

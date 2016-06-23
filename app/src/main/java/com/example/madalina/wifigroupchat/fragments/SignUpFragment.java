@@ -8,11 +8,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
+
 import com.example.madalina.wifigroupchat.R;
 import com.example.madalina.wifigroupchat.activities.LoginActivity;
 import com.example.madalina.wifigroupchat.dependencies.Injector;
@@ -20,6 +24,7 @@ import com.example.madalina.wifigroupchat.model.User;
 import com.example.madalina.wifigroupchat.network.ErrorHandler;
 import com.example.madalina.wifigroupchat.network.UserApis;
 import com.example.madalina.wifigroupchat.utils.GetGpsLocation;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,11 +37,13 @@ public class SignUpFragment extends BaseFragment {
     private EditText passwordEditText;
     private EditText passwordAgainEditText;
     private EditText nameEditText;
-    private EditText hobbyEditText;
+    private Spinner hobbySpinner;
+
     UserApis userApis;
     GetGpsLocation gpsLocation;
     double latitude;
     double longitude;
+    String hobby;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,10 +59,11 @@ public class SignUpFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         usernameEditText = (EditText) view.findViewById(R.id.username_edit_text);
         nameEditText = (EditText) view.findViewById(R.id.name_edit_text);
-        hobbyEditText = (EditText) view.findViewById(R.id.hobby_edit_text);
+        hobbySpinner = (Spinner) view.findViewById(R.id.hobby_edit_text);
         passwordEditText = (EditText) view.findViewById(R.id.password_edit_text);
         passwordAgainEditText = (EditText) view.findViewById(R.id.password_again_edit_text);
         Button mActionButton = (Button) view.findViewById(R.id.action_button);
+        initializeReasonsNotDoneSpinner();
         mActionButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 signup();
@@ -95,7 +103,6 @@ public class SignUpFragment extends BaseFragment {
             return;
         }
 
-
         WifiManager wifiManager = (WifiManager) getActivity().getSystemService(Context.WIFI_SERVICE);
         WifiInfo wInfo = wifiManager.getConnectionInfo();
         String macAddress = wInfo.getMacAddress();
@@ -109,7 +116,7 @@ public class SignUpFragment extends BaseFragment {
         }
 
         User user = User.create()
-                .hobby(hobbyEditText.getText().toString())
+                .hobby(hobby)
                 .latitude(latitude)
                 .longitude(longitude)
                 .mac(macAddress)
@@ -135,4 +142,24 @@ public class SignUpFragment extends BaseFragment {
             }
         });
     }
+
+    private void initializeReasonsNotDoneSpinner() {
+        ArrayAdapter<CharSequence> reasonNotDoneAdapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.hobbies, android.R.layout.simple_spinner_item);
+        reasonNotDoneAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        hobbySpinner.setAdapter(reasonNotDoneAdapter);
+        hobbySpinner.setOnItemSelectedListener(new ReasonNotDoneItemSelector());
+    }
+
+    private class ReasonNotDoneItemSelector implements AdapterView.OnItemSelectedListener {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            hobby = hobbySpinner.getSelectedItem().toString();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+        }
+    }
+
 }

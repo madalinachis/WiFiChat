@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import android.Manifest;
@@ -177,12 +178,8 @@ public class MapActivity extends BaseActivity implements LocationListener,
                 getNearbyFriendsByHobby(selectedHobby);
                 getNearbyFriends();
                 return true;
-            case R.id.group_friends:
-                return true;
             case R.id.settings:
-                Intent settingsIntent = new Intent(MapActivity.this, SettingsActivity.class);
-                settingsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(settingsIntent);
+                startActivity(new Intent(MapActivity.this, SettingsActivity.class));
                 return true;
             case R.id.log_out:
                 Intent logoutIntent = new Intent(MapActivity.this, WelcomeActivity.class);
@@ -354,9 +351,8 @@ public class MapActivity extends BaseActivity implements LocationListener,
             for (WifiP2pDevice device : peers) {
                 Log.d("DEVICE ADDRESSSSSSSSSSS", macBuilder(device.deviceAddress));
                 Log.d("USER MACCCCCCCC", user.getMac());
-                if (macBuilder(user.getMac()).equals(macBuilder(device.deviceAddress))) {
+                if (macBuilder(user.getMac()).equals(macBuilder(device.deviceAddress)) || user.getMac().equals("02:00:00:00:00:00")) {
                     peersUsersList.add(new PeersUser(user, device));
-                    Log.d("egaleeee", user.getUsername());
                 }
             }
         }

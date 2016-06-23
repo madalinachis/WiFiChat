@@ -7,46 +7,41 @@
     <item
         android:id="@+id/menu_item_location"
         android:icon="@drawable/ic_action_communication_location_on"
-        app:showAsAction="always"
-        android:title="Update location" />
+        android:title="Update location"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/menu_item_search"
         android:icon="@drawable/ic_action_action_search"
-        app:showAsAction="always"
-        android:title="Search friends">
+        android:title="Search friends"
+        app:showAsAction="always">
         <menu>
             <item
                 android:id="@+id/all_friends"
-                app:showAsAction="never"
-                android:title="Nearby friends" />
+                android:title="Nearby friends"
+                app:showAsAction="never" />
 
             <item
                 android:id="@+id/hobby_friends"
-                app:showAsAction="never"
-                android:title="Common hobby friends" />
-
-            <item
-                android:id="@+id/group_friends"
-                app:showAsAction="never"
-                android:title="Group members" />
+                android:title="Common hobby friends"
+                app:showAsAction="never" />
         </menu>
     </item>
     <item
         android:id="@+id/menu_item_settings"
         android:icon="@drawable/ic_setting_dark"
-        app:showAsAction="always"
-        android:title="Search friends">
+        android:title="Search friends"
+        app:showAsAction="always">
         <menu>
             <item
                 android:id="@+id/settings"
-                app:showAsAction="ifRoom"
-                android:title="Settings" />
+                android:title="Settings"
+                app:showAsAction="ifRoom" />
 
             <item
                 android:id="@+id/log_out"
-                app:showAsAction="ifRoom"
-                android:title="Log Out" />
+                android:title="Log Out"
+                app:showAsAction="ifRoom" />
         </menu>
     </item>
 

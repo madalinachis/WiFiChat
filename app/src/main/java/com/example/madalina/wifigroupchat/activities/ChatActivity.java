@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -50,7 +51,7 @@ import com.example.madalina.wifigroupchat.Receivers.WifiDirectBroadcastReceiver;
 import com.example.madalina.wifigroupchat.util.ActivityUtilities;
 import com.example.madalina.wifigroupchat.util.FileUtilities;
 
-public class ChatActivity extends Activity {
+public class ChatActivity extends AppCompatActivity {
 	private static final String TAG = "ChatActivity";	
 	private static final int PICK_IMAGE = 1;
 	private static final int TAKE_PHOTO = 2;
@@ -98,7 +99,7 @@ public class ChatActivity extends Activity {
         
         //Initialize the adapter for the chat
         listView = (ListView) findViewById(R.id.messageList);
-        listMessage = new ArrayList<Message>();
+        listMessage = new ArrayList<>();
         chatAdapter = new ChatAdapter(this, listMessage);
         listView.setAdapter(chatAdapter);
         
@@ -130,7 +131,7 @@ public class ChatActivity extends Activity {
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		
-		ActivityUtilities.customiseActionBar(this);
+	//	ActivityUtilities.customiseActionBar(this);
 	}
 	
 	@Override
