@@ -3,12 +3,13 @@ package com.example.madalina.wifigroupchat.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
 import com.example.madalina.wifigroupchat.R;
 
-public class PlayVideoActivity extends Activity {
+public class PlayVideoActivity extends AppCompatActivity {
 	
 	private VideoView videoPlayer;
 

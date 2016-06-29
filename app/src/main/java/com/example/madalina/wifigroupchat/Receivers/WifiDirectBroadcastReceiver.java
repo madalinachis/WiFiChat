@@ -103,33 +103,33 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver{
 			NetworkInfo networkInfo = (NetworkInfo) intent.getParcelableExtra(WifiP2pManager.EXTRA_NETWORK_INFO);
 			if(networkInfo.isConnected()){
 				mManager.requestConnectionInfo(mChannel, new ConnectionInfoListener() {
-					
+
 					@Override
 					public void onConnectionInfoAvailable(WifiP2pInfo info) {
 						InetAddress groupOwnerAddress = info.groupOwnerAddress;
 						ownerAddr= groupOwnerAddress;
-						
+
 						/******************************************************************
-						 The GO : create a server thread and accept incoming connections 
+						 The GO : create a server thread and accept incoming connections
 						******************************************************************/
-						if (info.groupFormed && info.isGroupOwner) { 
-							isGroupeOwner = IS_OWNER;	
+						if (info.groupFormed && info.isGroupOwner) {
+							isGroupeOwner = IS_OWNER;
 							activateGoToChat("server");
 						}
-						
+
 						/******************************************************************
-						 The client : create a client thread that connects to the group owner 
+						 The client : create a client thread that connects to the group owner
 						******************************************************************/
-						else if (info.groupFormed) { 
-							isGroupeOwner = IS_CLIENT;		
+						else if (info.groupFormed) {
+							isGroupeOwner = IS_CLIENT;
 							activateGoToChat("client");
-						}	
+						}
 					}
-				});				
+				});
 			}
 		}
 	}
-	
+
 	public void activateGoToChat(String role){
 		if(mActivity.getClass() == MainActivity.class){
 			((MainActivity)mActivity).getGoToChat().setText("Start the chat "+role);

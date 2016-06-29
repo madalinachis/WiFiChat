@@ -1,6 +1,5 @@
 package com.example.madalina.wifigroupchat.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -10,6 +9,7 @@ import android.net.wifi.p2p.WifiP2pManager;
 import android.net.wifi.p2p.WifiP2pManager.Channel;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,27 +25,22 @@ import com.example.madalina.wifigroupchat.InitThreads.ClientInit;
 import com.example.madalina.wifigroupchat.InitThreads.ServerInit;
 import com.example.madalina.wifigroupchat.R;
 import com.example.madalina.wifigroupchat.Receivers.WifiDirectBroadcastReceiver;
-import com.example.madalina.wifigroupchat.util.ActivityUtilities;
 
-/*
- * This activity is the launcher activity. 
- * Once the connection established, the ChatActivity is launched.
- */
-public class MainActivity extends Activity {
-    public static final String TAG = "MainActivity";
-    public static final String DEFAULT_CHAT_NAME = "";
-    private WifiP2pManager mManager;
-    private Channel mChannel;
-    private WifiDirectBroadcastReceiver mReceiver;
-    private IntentFilter mIntentFilter;
-    private Button goToChat;
-    private ImageView goToSettings;
-    private TextView goToSettingsText;
-    private TextView setChatNameLabel;
-    private EditText setChatName;
-    private ImageView disconnect;
-    public static String chatName;
-    public static ServerInit server;
+public class MainActivity extends AppCompatActivity {
+        public static final String TAG = "MainActivity";
+        public static final String DEFAULT_CHAT_NAME = "";
+        private WifiP2pManager mManager;
+        private Channel mChannel;
+        private WifiDirectBroadcastReceiver mReceiver;
+        private IntentFilter mIntentFilter;
+        private Button goToChat;
+        private ImageView goToSettings;
+        private TextView goToSettingsText;
+        private TextView setChatNameLabel;
+        private EditText setChatName;
+        private ImageView disconnect;
+        public static String chatName;
+        public static ServerInit server;
 
     //Getters and Setters
     public WifiP2pManager getmManager() {
@@ -121,8 +116,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
-        //	ActivityUtilities.customiseActionBar(this);
     }
 
     @Override

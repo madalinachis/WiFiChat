@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,7 +22,7 @@ import com.example.madalina.wifigroupchat.CustomViews.DrawingView;
 import com.example.madalina.wifigroupchat.R;
 import com.example.madalina.wifigroupchat.util.FileUtilities;
 
-public class DrawingActivity extends Activity {
+public class DrawingActivity extends AppCompatActivity {
 	private static final String TAG = "DrawingActivity";
 	private DrawingView drawView;
 	private ImageButton currentPaint;

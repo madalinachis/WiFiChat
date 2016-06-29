@@ -1,4 +1,4 @@
-package com.example.madalina.wifigroupchat.utils;
+package com.example.madalina.wifigroupchat.util;
 
 import android.app.AlertDialog;
 import android.app.Service;

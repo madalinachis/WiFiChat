@@ -1,4 +1,4 @@
-package com.example.madalina.wifigroupchat.transferfile;
+package com.example.madalina.wifigroupchat.wifiDirect;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,7 +29,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.madalina.wifigroupchat.R;
 import com.example.madalina.wifigroupchat.activities.MainActivity;
@@ -40,7 +39,6 @@ import com.example.madalina.wifigroupchat.activities.MainActivity;
  */
 public class DeviceDetailFragment extends Fragment implements ConnectionInfoListener {
 
-    protected static final int CHOOSE_FILE_RESULT_CODE = 20;
     private View mContentView = null;
     private WifiP2pDevice device;
     private WifiP2pInfo info;
@@ -93,108 +91,9 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
                     }
                 });
 
-        mContentView.findViewById(R.id.btn_start_client).setOnClickListener(
-                new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        // Allow user to pick an image from Gallery or other
-                        // registered apps
-
-                        Intent intent = new Intent(Intent.ACTION_PICK);
-                        intent.setType("image/*");
-                        startActivityForResult(intent, CHOOSE_FILE_RESULT_CODE);
-
-                    }
-                });
-
         return mContentView;
     }
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        // User has picked an image. Transfer it to group owner i.e peer using
-        // FileTransferService.
-        if (resultCode == getActivity().RESULT_OK) {
-            Uri uri = data.getData();
-                /*
-                 * get actual file name and size of file, it will be send to socket and recieved at other device.
-    	         * File size help in displaying progress dialog actual progress.
-    	         */
-            String selectedfilePath = null;
-            try {
-                selectedfilePath = CommonMethods.getPath(uri,
-                        getActivity());
-
-                Log.e("Original Selected File Path-> ", selectedfilePath);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            String Extension = "";
-            File f = new File(selectedfilePath);
-            System.out.println("file name is   ::" + f.getName());
-            ActualFilelength = f.length();
-            try {
-                Extension = f.getName();
-                Log.e("Name of File-> ", "" + Extension);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            TextView statusText = (TextView) mContentView.findViewById(R.id.status_text);
-            statusText.setText("Sending: " + uri);
-            Log.d(MainActivity.TAG, "Intent----------- " + uri);
-            Intent serviceIntent = new Intent(getActivity(), FileTransferService.class);
-            serviceIntent.setAction(FileTransferService.ACTION_SEND_FILE);
-            serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uri.toString());
-                /*
-                 * Choose on which device file has to send weather its server or client
-    	         */
-            String Ip = SharedPreferencesHandler.getStringValues(getActivity(), "WiFiClientIp");
-            String OwnerIp = SharedPreferencesHandler.getStringValues(getActivity(), "GroupOwnerAddress");
-            if (OwnerIp != null && OwnerIp.length() > 0) {
-                String host = null;
-                int sub_port = -1;
-
-                String ServerBool = SharedPreferencesHandler.getStringValues(getActivity(), "ServerBoolean");
-                if (ServerBool != null && !ServerBool.equals("") && ServerBool.equalsIgnoreCase("true")) {
-
-                    if (Ip != null && !Ip.equals("")) {
-                        // Get Client Ip Address and send data
-                        host = Ip;
-                        sub_port = FileTransferService.PORT;
-                        serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_ADDRESS, Ip);
-                    }
-
-
-                } else {
-                    FileTransferService.PORT = 8888;
-                    host = OwnerIp;
-                    sub_port = FileTransferService.PORT;
-                    serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_ADDRESS, OwnerIp);
-                }
-
-                serviceIntent.putExtra(FileTransferService.Extension, Extension);
-                serviceIntent.putExtra(FileTransferService.Filelength, ActualFilelength + "");
-                serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_PORT, FileTransferService.PORT);
-                if (host != null && sub_port != -1) {
-                    showprogress("Sending...");
-                    getActivity().startService(serviceIntent);
-                } else {
-                    CommonMethods.DisplayToast(getActivity(), "Host Address not found, Please Re-Connect");
-                    DismissProgressDialog();
-                }
-
-            } else {
-                DismissProgressDialog();
-                CommonMethods.DisplayToast(getActivity(), "Host Address not found, Please Re-Connect");
-            }
-        } else {
-            CommonMethods.DisplayToast(getActivity(), "Cancelled Request");
-        }
-    }
 
     @Override
     public void onConnectionInfoAvailable(final WifiP2pInfo info) {
@@ -202,7 +101,6 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
             progressDialog.dismiss();
         }
         this.info = info;
-        this.getView().setVisibility(View.VISIBLE);
 
         // The owner IP is now known.
         TextView view = (TextView) mContentView.findViewById(R.id.group_owner);
@@ -222,7 +120,6 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         String GroupOwner = info.groupOwnerAddress.getHostAddress();
         if (GroupOwner != null && !GroupOwner.equals(""))
             SharedPreferencesHandler.setStringValues(getActivity(), "GroupOwnerAddress", GroupOwner);
-        mContentView.findViewById(R.id.btn_start_client).setVisibility(View.VISIBLE);
         if (info.groupFormed && info.isGroupOwner) {
             /*
              * set shaerdprefrence which remember that device is server.
@@ -283,7 +180,6 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         view.setText(R.string.empty);
         view = (TextView) mContentView.findViewById(R.id.status_text);
         view.setText(R.string.empty);
-        mContentView.findViewById(R.id.btn_start_client).setVisibility(View.GONE);
         this.getView().setVisibility(View.GONE);
         /*
          * Remove All the prefrences here
@@ -398,7 +294,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
                     mFilecontext.startActivity(intent);
                 } else {
                     /*
-					 * To initiate socket again we are intiating async task
+                     * To initiate socket again we are intiating async task
 					 * in this condition.
 					 */
                     FileServerAsyncTask FileServerobj = new FileServerAsyncTask(mFilecontext, FileTransferService.PORT);

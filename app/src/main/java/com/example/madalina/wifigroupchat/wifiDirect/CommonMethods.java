@@ -1,4 +1,4 @@
-package com.example.madalina.wifigroupchat.transferfile;
+package com.example.madalina.wifigroupchat.wifiDirect;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

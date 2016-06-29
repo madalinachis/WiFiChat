@@ -6,7 +6,6 @@
     android:background="@color/app_background"
     tools:context="com.android.wondercom.MainActivity">
 
-
     <!-- Go to Settings screen -->
 
     <LinearLayout

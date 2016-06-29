@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import android.Manifest;
@@ -37,9 +36,15 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.madalina.wifigroupchat.InitThreads.ClientInit;
+import com.example.madalina.wifigroupchat.InitThreads.ServerInit;
+import com.example.madalina.wifigroupchat.Receivers.WifiDirectBroadcastReceiver;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -65,10 +70,10 @@ import com.example.madalina.wifigroupchat.model.PeersUser;
 import com.example.madalina.wifigroupchat.model.User;
 import com.example.madalina.wifigroupchat.network.ErrorHandler;
 import com.example.madalina.wifigroupchat.network.UserApis;
-import com.example.madalina.wifigroupchat.transferfile.DeviceDetailFragment;
-import com.example.madalina.wifigroupchat.transferfile.DeviceListFragment;
-import com.example.madalina.wifigroupchat.transferfile.WiFiDirectBroadcastReceiver;
-import com.example.madalina.wifigroupchat.utils.GetGpsLocation;
+import com.example.madalina.wifigroupchat.wifiDirect.DeviceDetailFragment;
+import com.example.madalina.wifigroupchat.wifiDirect.DeviceListFragment;
+import com.example.madalina.wifigroupchat.wifiDirect.WiFiDirectBroadcastReceiver;
+import com.example.madalina.wifigroupchat.util.GetGpsLocation;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -109,13 +114,38 @@ public class MapActivity extends BaseActivity implements LocationListener,
     private LocationRequest locationRequest;
     private GoogleApiClient locationClient;
 
-    public static final String TAG = "wifidirectdemo";
+    public static final String TAG = "MapActivity";
     private WifiP2pManager manager;
     private boolean isWifiP2pEnabled = false;
     private boolean retryChannel = false;
     private final IntentFilter intentFilter = new IntentFilter();
     private WifiP2pManager.Channel channel;
     private BroadcastReceiver receiver = null;
+
+    public static final String DEFAULT_CHAT_NAME = "";
+    private WifiP2pManager mManager;
+    private WifiP2pManager.Channel mChannel;
+    private WifiDirectBroadcastReceiver mReceiver;
+    private IntentFilter mIntentFilter;
+    public static String chatName;
+    public static ServerInit server;
+
+    //Getters and Setters
+    public WifiP2pManager getmManager() {
+        return mManager;
+    }
+
+    public WifiP2pManager.Channel getmChannel() {
+        return mChannel;
+    }
+
+    public WifiDirectBroadcastReceiver getmReceiver() {
+        return mReceiver;
+    }
+
+    public IntentFilter getmIntentFilter() {
+        return mIntentFilter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +154,8 @@ public class MapActivity extends BaseActivity implements LocationListener,
         userApis = Injector.getApi(UserApis.class);
         currentUser = getIntent().getParcelableExtra("currentUser");
         setContentView(R.layout.activity_map);
+
+        init();
 
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
@@ -149,10 +181,34 @@ public class MapActivity extends BaseActivity implements LocationListener,
         if (startChatButton != null) {
             startChatButton.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
-                    startActivity(new Intent(MapActivity.this, MainActivity.class));
+                    /*
+                    Intent intent = new Intent(MapActivity.this, MainActivity.class);
+                    intent.putExtra("currentUser", currentUser);
+                    startActivity(intent);
+*/
+                    //Set the chat name
+                    saveChatName(MapActivity.this, currentUser.getUsername());
+                    chatName = loadChatName(MapActivity.this);
+
+                    //Start the init process
+                    if (mReceiver.isGroupeOwner() == WifiDirectBroadcastReceiver.IS_OWNER) {
+                        Toast.makeText(MapActivity.this, "I'm the group owner  " + mReceiver.getOwnerAddr().getHostAddress(), Toast.LENGTH_SHORT).show();
+                        server = new ServerInit();
+                        server.start();
+                    } else if (mReceiver.isGroupeOwner() == WifiDirectBroadcastReceiver.IS_CLIENT) {
+                        Toast.makeText(MapActivity.this, "I'm the client", Toast.LENGTH_SHORT).show();
+                        ClientInit client = new ClientInit(mReceiver.getOwnerAddr());
+                        client.start();
+                    }
+
+                    //Open the ChatActivity
+                    Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                    startActivity(intent);
                 }
             });
         }
+
+
     }
 
     @Override
@@ -319,6 +375,7 @@ public class MapActivity extends BaseActivity implements LocationListener,
                 Toast.makeText(MapActivity.this, "Connect failed. Retry.", Toast.LENGTH_SHORT).show();
             }
         });
+        usersAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -338,6 +395,7 @@ public class MapActivity extends BaseActivity implements LocationListener,
             }
 
         });
+        usersAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -644,11 +702,15 @@ public class MapActivity extends BaseActivity implements LocationListener,
 
     private void displayUsers(List<PeersUser> users) {
         usersAdapter = new UsersAdapter(MapActivity.this, users);
-        ListView postsListView = (ListView) findViewById(R.id.posts_listview);
+        ListView postsListView = (ListView) findViewById(R.id.users_listview);
         if (postsListView != null) {
             postsListView.setAdapter(usersAdapter);
             postsListView.setOnItemClickListener(new OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    final View fragmentDetails = findViewById(R.id.frag_detail);
+                    if (fragmentDetails != null) {
+                        fragmentDetails.setVisibility(View.VISIBLE);
+                    }
                     final User user = usersAdapter.getItem(position).getUser();
                     selectedPostObjectId = user.getUserId();
                     mapFragment.getMap().animateCamera(
@@ -752,4 +814,32 @@ public class MapActivity extends BaseActivity implements LocationListener,
         });
     }
 
+    //Save the chat name to SharedPreferences
+    public void saveChatName(Context context, String chatName) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putString("chatName", chatName);
+        edit.commit();
+    }
+
+    //Retrieve the chat name from SharedPreferences
+    public String loadChatName(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString("chatName", DEFAULT_CHAT_NAME);
+    }
+
+    public void init() {
+        mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
+        mChannel = mManager.initialize(this, getMainLooper(), null);
+        mReceiver = WifiDirectBroadcastReceiver.createInstance();
+        mReceiver.setmManager(mManager);
+        mReceiver.setmChannel(mChannel);
+        mReceiver.setmActivity(this);
+
+        mIntentFilter = new IntentFilter();
+        mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
+        mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
+        mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
+        mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
+    }
 }

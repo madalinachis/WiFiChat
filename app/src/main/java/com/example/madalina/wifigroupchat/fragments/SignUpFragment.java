@@ -23,7 +23,7 @@ import com.example.madalina.wifigroupchat.dependencies.Injector;
 import com.example.madalina.wifigroupchat.model.User;
 import com.example.madalina.wifigroupchat.network.ErrorHandler;
 import com.example.madalina.wifigroupchat.network.UserApis;
-import com.example.madalina.wifigroupchat.utils.GetGpsLocation;
+import com.example.madalina.wifigroupchat.util.GetGpsLocation;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -127,13 +127,7 @@ public class SignUpFragment extends BaseFragment {
         runCall(userApis.register(user)).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                } else {
-                    ErrorHandler.showError(getActivity(), response);
-                }
+                startActivity(new Intent(getActivity(), LoginActivity.class));
             }
 
             @Override

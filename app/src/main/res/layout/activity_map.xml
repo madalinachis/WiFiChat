@@ -31,32 +31,26 @@
             android:layout_height="208dp" />
 
         <ListView
-            android:id="@+id/posts_listview"
+            android:id="@+id/users_listview"
             android:layout_width="match_parent"
             android:layout_height="101dp"
             android:layout_marginTop="8dp"
             android:layout_weight="0.05" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.9"
-            android:orientation="vertical">
+        <fragment
+            android:id="@+id/frag_list"
+            class="com.example.madalina.wifigroupchat.wifiDirect.DeviceListFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" />
 
-            <fragment
-                android:id="@+id/frag_list"
-                class="com.example.madalina.wifigroupchat.transferfile.DeviceListFragment"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/phone_list_height"
-                android:layout_marginTop="8dp" />
-
-            <fragment
-                android:id="@+id/frag_detail"
-                class="com.example.madalina.wifigroupchat.transferfile.DeviceDetailFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+        <fragment
+            android:id="@+id/frag_detail"
+            class="com.example.madalina.wifigroupchat.wifiDirect.DeviceDetailFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
     </LinearLayout>
 </ScrollView>

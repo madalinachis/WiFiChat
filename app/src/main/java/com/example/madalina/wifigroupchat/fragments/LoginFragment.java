@@ -18,13 +18,12 @@ import butterknife.OnClick;
 
 import com.example.madalina.wifigroupchat.R;
 import com.example.madalina.wifigroupchat.activities.LoginActivity;
-import com.example.madalina.wifigroupchat.activities.MainActivity;
 import com.example.madalina.wifigroupchat.activities.MapActivity;
 import com.example.madalina.wifigroupchat.dependencies.Injector;
 import com.example.madalina.wifigroupchat.model.User;
 import com.example.madalina.wifigroupchat.network.ErrorHandler;
 import com.example.madalina.wifigroupchat.network.UserApis;
-import com.example.madalina.wifigroupchat.utils.GetGpsLocation;
+import com.example.madalina.wifigroupchat.util.GetGpsLocation;
 
 import retrofit2.Call;
 import retrofit2.Callback;

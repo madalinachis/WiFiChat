@@ -1,15 +1,15 @@
 package com.example.madalina.wifigroupchat.activities;
 
-import com.example.madalina.wifigroupchat.CustomAdapters.ChatAdapter;
+import com.example.madalina.wifigroupchat.adapters.ChatAdapter;
 import com.example.madalina.wifigroupchat.R;
 import com.example.madalina.wifigroupchat.util.SystemUiHider;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,7 +22,7 @@ import android.widget.ImageView;
  * 
  * @see SystemUiHider
  */
-public class ViewImageActivity extends Activity {
+public class ViewImageActivity extends AppCompatActivity {
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.

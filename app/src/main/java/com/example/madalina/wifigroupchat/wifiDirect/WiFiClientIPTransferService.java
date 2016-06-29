@@ -1,4 +1,4 @@
-package com.example.madalina.wifigroupchat.transferfile;
+package com.example.madalina.wifigroupchat.wifiDirect;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,7 +8,6 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import android.app.IntentService;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;

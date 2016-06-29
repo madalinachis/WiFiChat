@@ -13,7 +13,7 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.ListView;
 
-import com.example.madalina.wifigroupchat.CustomAdapters.FileListAdapter;
+import com.example.madalina.wifigroupchat.adapters.FileListAdapter;
 import com.example.madalina.wifigroupchat.Entities.Item;
 import com.example.madalina.wifigroupchat.R;
 

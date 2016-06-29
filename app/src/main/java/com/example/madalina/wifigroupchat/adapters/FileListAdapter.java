@@ -1,4 +1,4 @@
-package com.example.madalina.wifigroupchat.CustomAdapters;
+package com.example.madalina.wifigroupchat.adapters;
 
 import java.util.List;
 

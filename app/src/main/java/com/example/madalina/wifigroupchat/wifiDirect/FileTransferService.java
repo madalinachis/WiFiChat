@@ -1,4 +1,4 @@
-package com.example.madalina.wifigroupchat.transferfile;
+package com.example.madalina.wifigroupchat.wifiDirect;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

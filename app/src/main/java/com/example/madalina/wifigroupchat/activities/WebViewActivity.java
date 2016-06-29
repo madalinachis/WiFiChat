@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -14,7 +15,7 @@ import android.widget.ProgressBar;
 
 import com.example.madalina.wifigroupchat.R;
 
-public class WebViewActivity extends Activity {
+public class WebViewActivity extends AppCompatActivity {
 	
 	private ProgressBar progressBar;
 

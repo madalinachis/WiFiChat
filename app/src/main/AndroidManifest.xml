@@ -83,7 +83,7 @@
             android:name=".activities.WelcomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo">
+            android:theme="@style/AppMainTheme">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -97,18 +97,13 @@
             android:parentActivityName=".activities.MapActivity"
             android:theme="@style/AppMainTheme" />
 
-        <activity
-            android:name=".activities.MyProfileActivity"
-            android:label="My profile"
-            android:theme="@style/AppMainTheme" />
-
         <!-- Used for transferring files  after a successful connection -->
 
         <service
-            android:name=".transferfile.FileTransferService"
+            android:name=".wifiDirect.FileTransferService"
             android:enabled="true" />
         <service
-            android:name=".transferfile.WiFiClientIPTransferService"
+            android:name=".wifiDirect.WiFiClientIPTransferService"
             android:enabled="true" />
 
         <!--Include the AdActivity configChanges and theme. -->
@@ -130,8 +125,7 @@
             android:name=".activities.ViewImageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_view_image"
-            android:parentActivityName=".activities.ChatActivity"
-            android:theme="@style/FullscreenTheme" />
+            android:parentActivityName=".activities.ChatActivity" />
         <activity
             android:name=".activities.RecordAudioActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
