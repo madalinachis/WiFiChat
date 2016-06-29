@@ -19,9 +19,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.example.madalina.wifigroupchat.R;
-import com.example.madalina.wifigroupchat.activities.MainActivity;
+import com.example.madalina.wifigroupchat.activities.MapActivity;
 
 /**
  * A ListFragment that displays available peers on discovery and requests the
@@ -54,7 +55,7 @@ public class DeviceListFragment extends ListFragment implements PeerListListener
     }
 
     private static String getDeviceStatus(int deviceStatus) {
-        Log.d(MainActivity.TAG, "Peer status :" + deviceStatus);
+        Log.d(MapActivity.TAG, "Peer status :" + deviceStatus);
         switch (deviceStatus) {
             case WifiP2pDevice.AVAILABLE:
                 return "Available";
@@ -137,7 +138,7 @@ public class DeviceListFragment extends ListFragment implements PeerListListener
         peers.addAll(peerList.getDeviceList());
         ((WiFiPeerListAdapter) getListAdapter()).notifyDataSetChanged();
         if (peers.size() == 0) {
-            Log.d(MainActivity.TAG, "No devices found");
+            Log.d(MapActivity.TAG, "No devices found");
         }
         ((DeviceActionListener) getActivity()).getPeersList(peerList);;
 

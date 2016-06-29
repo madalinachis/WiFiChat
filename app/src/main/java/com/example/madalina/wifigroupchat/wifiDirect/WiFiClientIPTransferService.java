@@ -13,7 +13,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 
-import com.example.madalina.wifigroupchat.activities.MainActivity;
+import com.example.madalina.wifigroupchat.activities.MapActivity;
 
 /**
  * Created by Madalina.Chis on 4/11/2016.
@@ -49,10 +49,10 @@ public class WiFiClientIPTransferService extends IntentService {
 
             try {
 
-                Log.d(MainActivity.TAG, "Opening client socket for First tiime- ");
+                Log.d(MapActivity.TAG, "Opening client socket for First tiime- ");
                 socket.bind(null);
                 socket.connect((new InetSocketAddress(host, port)), FileTransferService.SOCKET_TIMEOUT);
-                Log.d(MainActivity.TAG, "Client socket - " + socket.isConnected());
+                Log.d(MapActivity.TAG, "Client socket - " + socket.isConnected());
                 OutputStream stream = socket.getOutputStream();
                 //  ContentResolver cr = context.getContentResolver();
                 InputStream is = null;
@@ -68,7 +68,7 @@ public class WiFiClientIPTransferService extends IntentService {
 
                 oos.close();    //close the ObjectOutputStream after sending data.
             } catch (IOException e) {
-                Log.e(MainActivity.TAG, e.getMessage());
+                Log.e(MapActivity.TAG, e.getMessage());
                 e.printStackTrace();
             } finally {
                 if (socket != null) {

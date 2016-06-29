@@ -36,10 +36,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.madalina.wifigroupchat.InitThreads.ClientInit;
@@ -181,11 +178,6 @@ public class MapActivity extends BaseActivity implements LocationListener,
         if (startChatButton != null) {
             startChatButton.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
-                    /*
-                    Intent intent = new Intent(MapActivity.this, MainActivity.class);
-                    intent.putExtra("currentUser", currentUser);
-                    startActivity(intent);
-*/
                     //Set the chat name
                     saveChatName(MapActivity.this, currentUser.getUsername());
                     chatName = loadChatName(MapActivity.this);
@@ -193,6 +185,7 @@ public class MapActivity extends BaseActivity implements LocationListener,
                     //Start the init process
                     if (mReceiver.isGroupeOwner() == WifiDirectBroadcastReceiver.IS_OWNER) {
                         Toast.makeText(MapActivity.this, "I'm the group owner  " + mReceiver.getOwnerAddr().getHostAddress(), Toast.LENGTH_SHORT).show();
+                        Log.d("GO", mReceiver.getOwnerAddr().getHostAddress());
                         server = new ServerInit();
                         server.start();
                     } else if (mReceiver.isGroupeOwner() == WifiDirectBroadcastReceiver.IS_CLIENT) {
@@ -273,6 +266,21 @@ public class MapActivity extends BaseActivity implements LocationListener,
         }
         doMapQuery();
         doListQuery();
+
+        registerReceiver(mReceiver, mIntentFilter);
+
+        mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
+
+            @Override
+            public void onSuccess() {
+                Log.v(TAG, "Discovery process succeeded");
+            }
+
+            @Override
+            public void onFailure(int reason) {
+                Log.v(TAG, "Discovery process failed");
+            }
+        });
     }
 
     @Override
@@ -466,6 +474,7 @@ public class MapActivity extends BaseActivity implements LocationListener,
     public void onPause() {
         super.onPause();
         unregisterReceiver(receiver);
+        unregisterReceiver(mReceiver);
     }
 
     /**

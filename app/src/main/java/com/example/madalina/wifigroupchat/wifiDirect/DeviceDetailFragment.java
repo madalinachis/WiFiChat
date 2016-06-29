@@ -31,7 +31,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.madalina.wifigroupchat.R;
-import com.example.madalina.wifigroupchat.activities.MainActivity;
+import com.example.madalina.wifigroupchat.activities.MapActivity;
 
 /**
  * A fragment that manages a particular peer and allows interaction with device
@@ -345,7 +345,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
             out.close();
             inputStream.close();
         } catch (IOException e) {
-            Log.d(MainActivity.TAG, e.toString());
+            Log.d(MapActivity.TAG, e.toString());
             return false;
         }
         return true;
@@ -387,7 +387,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
             out.close();
             inputStream.close();
         } catch (IOException e) {
-            Log.d(MainActivity.TAG, e.toString());
+            Log.d(MapActivity.TAG, e.toString());
             return false;
         }
         return true;

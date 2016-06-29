@@ -15,7 +15,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.madalina.wifigroupchat.activities.ChatActivity;
-import com.example.madalina.wifigroupchat.activities.MainActivity;
 import com.example.madalina.wifigroupchat.Entities.Message;
 import com.example.madalina.wifigroupchat.InitThreads.ServerInit;
 

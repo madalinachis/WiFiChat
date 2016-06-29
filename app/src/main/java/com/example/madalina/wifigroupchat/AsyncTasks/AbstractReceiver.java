@@ -11,9 +11,9 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 
-import com.example.madalina.wifigroupchat.activities.MainActivity;
 import com.example.madalina.wifigroupchat.R;
 import com.example.madalina.wifigroupchat.Entities.Message;
+import com.example.madalina.wifigroupchat.activities.MapActivity;
 
 public class AbstractReceiver extends AsyncTask<Void, Message, Void>{
 	
@@ -26,7 +26,7 @@ public class AbstractReceiver extends AsyncTask<Void, Message, Void>{
 		Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 		
 		//Intent exactly like Android intent to launch the app => the app is simply brought back to front
-		Intent intent = new Intent(context, MainActivity.class);
+		Intent intent = new Intent(context, MapActivity.class);
 		intent.setAction(Intent.ACTION_MAIN);
 		intent.addCategory(Intent.CATEGORY_LAUNCHER);
 		

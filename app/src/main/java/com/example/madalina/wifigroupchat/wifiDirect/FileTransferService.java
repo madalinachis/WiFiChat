@@ -17,7 +17,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.madalina.wifigroupchat.activities.MainActivity;
+import com.example.madalina.wifigroupchat.activities.MapActivity;
 
 /**
  * A service that process each file transfer request i.e Intent by opening a
@@ -71,11 +71,11 @@ public class FileTransferService extends IntentService {
             String filelength = intent.getExtras().getString(Filelength);
 
             try {
-                Log.d(MainActivity.TAG, "Opening client socket - ");
+                Log.d(MapActivity.TAG, "Opening client socket - ");
                 socket.bind(null);
                 socket.connect((new InetSocketAddress(host, port)), SOCKET_TIMEOUT);
 
-                Log.d(MainActivity.TAG, "Client socket - " + socket.isConnected());
+                Log.d(MapActivity.TAG, "Client socket - " + socket.isConnected());
                 OutputStream stream = socket.getOutputStream();
                 ContentResolver cr = context.getContentResolver();
                 InputStream is = null;
@@ -94,13 +94,13 @@ public class FileTransferService extends IntentService {
                 try {
                     is = cr.openInputStream(Uri.parse(fileUri));
                 } catch (FileNotFoundException e) {
-                    Log.d(MainActivity.TAG, e.toString());
+                    Log.d(MapActivity.TAG, e.toString());
                 }
                 DeviceDetailFragment.copyFile(is, stream);
-                Log.d(MainActivity.TAG, "Client: Data written");
+                Log.d(MapActivity.TAG, "Client: Data written");
                 oos.close();    //close the ObjectOutputStream after sending data.
             } catch (IOException e) {
-                Log.e(MainActivity.TAG, e.getMessage());
+                Log.e(MapActivity.TAG, e.getMessage());
                 e.printStackTrace();
                 mHandler.post(new Runnable() {
 

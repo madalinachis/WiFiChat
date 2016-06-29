@@ -106,7 +106,7 @@ public class ChatActivity extends AppCompatActivity {
         listView.setAdapter(chatAdapter);
 
         //Initialize the list of temporary files URI
-        tmpFilesUri = new ArrayList<Uri>();
+        tmpFilesUri = new ArrayList<>();
 
         //Send a message
         Button button = (Button) findViewById(R.id.sendMessage);
@@ -178,8 +178,8 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 clearTmpFiles(getExternalFilesDir(null));
-                if (MainActivity.server != null) {
-                    MainActivity.server.interrupt();
+                if (MapActivity.server != null) {
+                    MapActivity.server.interrupt();
                 }
                 android.os.Process.killProcess(android.os.Process.myPid());
             }
@@ -254,7 +254,7 @@ public class ChatActivity extends AppCompatActivity {
     public void sendMessage(int type) {
         Log.v(TAG, "Send message starts");
         // Message written in EditText is always sent
-        Message mes = new Message(type, edit.getText().toString(), null, MainActivity.chatName);
+        Message mes = new Message(type, edit.getText().toString(), null, MapActivity.chatName);
 
         switch (type) {
             case Message.IMAGE_MESSAGE:

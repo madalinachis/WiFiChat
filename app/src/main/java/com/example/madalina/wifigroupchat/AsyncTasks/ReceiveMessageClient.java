@@ -12,7 +12,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 
 import com.example.madalina.wifigroupchat.activities.ChatActivity;
-import com.example.madalina.wifigroupchat.activities.MainActivity;
 import com.example.madalina.wifigroupchat.Entities.Message;
 
 public class ReceiveMessageClient extends AbstractReceiver {
