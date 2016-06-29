@@ -185,7 +185,6 @@ public class MapActivity extends BaseActivity implements LocationListener,
                     //Start the init process
                     if (mReceiver.isGroupeOwner() == WifiDirectBroadcastReceiver.IS_OWNER) {
                         Toast.makeText(MapActivity.this, "I'm the group owner  " + mReceiver.getOwnerAddr().getHostAddress(), Toast.LENGTH_SHORT).show();
-                        Log.d("GO", mReceiver.getOwnerAddr().getHostAddress());
                         server = new ServerInit();
                         server.start();
                     } else if (mReceiver.isGroupeOwner() == WifiDirectBroadcastReceiver.IS_CLIENT) {
@@ -193,14 +192,11 @@ public class MapActivity extends BaseActivity implements LocationListener,
                         ClientInit client = new ClientInit(mReceiver.getOwnerAddr());
                         client.start();
                     }
-
-                    //Open the ChatActivity
                     Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                     startActivity(intent);
                 }
             });
         }
-
 
     }
 

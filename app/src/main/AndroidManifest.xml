@@ -99,13 +99,6 @@
 
         <!-- Used for transferring files  after a successful connection -->
 
-        <service
-            android:name=".wifiDirect.FileTransferService"
-            android:enabled="true" />
-        <service
-            android:name=".wifiDirect.WiFiClientIPTransferService"
-            android:enabled="true" />
-
         <!--Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
